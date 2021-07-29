@@ -3,7 +3,20 @@ This tool dumps osm pbf data to mongodb in GeoJson format. Other attributes (or 
 The only osm type it can currently handle is Node, corresponding to GeoJson Point type. Other objects are simple ignored.
 This is a rough tool that is written in a sleepless night and is not reliable. Use at your own risk.
 
-BTW, the go routine amount of parallel decoder are hard coded. 
+BTW, the goroutine amount of parallel decoder are hard coded, change it to fit your needs. 
+
+# Schema
+The schema of imported data is:
+```json
+{
+        "_id": "OSM ID (int)",
+        "coordinates": ["Lontitude (number)", "Latitude (number)"],
+        "type": "Point", // this is static value
+        "time": "OSM info timestamp (timestamp)",
+        //... Other OSM tags
+}
+```
+If the tag look like "xxx:yyy", "xxx:zzz". It will be gather to a document like `xxx: {yyy: value, zzz: value2}`
 
 # License
 ```
